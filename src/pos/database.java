@@ -26,7 +26,7 @@ public class database {
      
      try {
          
-         Class.forName("com.mysql.jdbc.Driver");
+         Class.forName("com.mysql.cj.jdbc.Driver");
          con = DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
          return con; 
      } catch (ClassNotFoundException | SQLException e) {

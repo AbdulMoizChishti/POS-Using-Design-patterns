@@ -8,7 +8,6 @@ package pos;
  *
  * @author Abdul Moiz Chishti
  */
-
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -17,7 +16,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+
 public class Login extends javax.swing.JFrame {
+
+    String un = "",
+            p = "";
 
     /**
      * Creates new form Login
@@ -212,72 +215,74 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        un = username.getText();
+        p = pass.getText();
 
-        String un= username.getText();
-        String p= pass.getText();
+        login();
 
-        try{
-            Class.forName("java.sql.DriverManager");
-            Connection conn= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
-            Statement st= (Statement)conn.createStatement();
-            String sql= "select * from user_login";
 
-            ResultSet rs= st.executeQuery(sql);
-            while(rs.next()){
-                String username= rs.getString("username");
-                String Password= rs.getString("password");
-
-                if(un.equals(username) && p.equals(Password)){
-                    new Dashboard().setVisible(true);
-                    dispose();
-                    break;
-                }
-
-                else{
-                    JOptionPane.showMessageDialog(null, "Username or Password is incorrect!");
-                }
-            }
-        }
-        catch(HeadlessException | ClassNotFoundException | SQLException e){
-            JOptionPane.showMessageDialog(null, "Error while establishing connection");
-        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyPressed
-    
-         String un= username.getText();
-        String p= pass.getText();
+    public void login() {
 
-        
-                if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-                 try{
+        try {
             Class.forName("java.sql.DriverManager");
-            Connection conn= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/pos","root","");
-            Statement st= (Statement)conn.createStatement();
-            String sql= "select * from user_login";
+            Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/pos", "root", "");
+            Statement st = (Statement) conn.createStatement();
+            String sql = "select * from user_login";
 
-            ResultSet rs= st.executeQuery(sql);
-            while(rs.next()){
-                String username= rs.getString("username");
-                String Password= rs.getString("password");
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                String username = rs.getString("username");
+                String Password = rs.getString("password");
 
-                if(un.equals(username) && p.equals(Password)){
+                if (un.equals(username) && p.equals(Password)) {
                     new Dashboard().setVisible(true);
                     dispose();
                     break;
-                }
-
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Username or Password is incorrect!");
                 }
             }
-        }           catch(HeadlessException | ClassNotFoundException | SQLException e){
+        } catch (HeadlessException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error while establishing connection");
         }
-                
+
+    }
+
+
+    private void passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyPressed
+
+        String un = username.getText();
+        String p = pass.getText();
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                Class.forName("java.sql.DriverManager");
+                Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/pos", "root", "");
+                Statement st = (Statement) conn.createStatement();
+                String sql = "select * from user_login";
+
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    String username = rs.getString("username");
+                    String Password = rs.getString("password");
+
+                    if (un.equals(username) && p.equals(Password)) {
+                        new Dashboard().setVisible(true);
+                        dispose();
+                        break;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Username or Password is incorrect!");
+                    }
                 }
-        
-        
+            } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error while establishing connection");
+            }
+
+        }
+
+
     }//GEN-LAST:event_passKeyPressed
 
     /**
